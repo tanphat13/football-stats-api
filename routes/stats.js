@@ -2,7 +2,7 @@ const express = require("express");
 const fs = require("fs");
 const path = require("path");
 const router = express.Router();
-const statsFilePath = "./stats.json"
+const statsFilePath = path.join(__dirname, "./stats.json")
 
 const getStats = async (req, res, next) => {
 	try {
@@ -34,6 +34,7 @@ const createStats = async (req, res, next) => {
 			points_scored: req.body.points_scored,
 		};
 		stats.push(newStats);
+		console.log(stats);
 		fs.writeFileSync(statsFilePath, JSON.stringify(stats));
 		res.status(201).json(newStats);
 	} catch (e) {
